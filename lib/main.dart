@@ -1,5 +1,6 @@
 import 'package:app/core/navigation/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,14 +19,19 @@ import 'features/notifications/presentation/bloc/notification_bloc.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // Initialize Firebase only on supported platforms (Android, iOS, Web)
+  if (defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.iOS ||
+      kIsWeb) {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    // Initialize Firebase Messaging only on supported platforms
+    await sl<FirebaseMessagingService>().initialize();
+  }
 
   // Load environment variables
   await dotenv.load(fileName: ".env");
   // Initialize dependency injection
   await initServiceLocator();
-  await sl<FirebaseMessagingService>().initialize();
 
   runApp(const MyApp());
 }
