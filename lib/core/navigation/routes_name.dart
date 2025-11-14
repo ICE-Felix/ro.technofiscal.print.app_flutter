@@ -1,5 +1,6 @@
 enum AppRoutesNames {
   intro(name: 'intro', path: '/'),
+  home(name: 'home', path: '/home'),
   //Auth
   login(name: 'login', path: 'login'),
   register(name: 'register', path: 'register'),
@@ -29,6 +30,13 @@ enum AppRoutesNames {
 
   //Profile
   profile(name: 'profile', path: '/profile'),
+
+  //Contract Generation
+  contractGeneration(name: 'contract_generation', path: '/contract-generation'),
+  contractGenerationSingleField(
+    name: 'contract_generation_single_field',
+    path: '/contract-generation-single-field',
+  ),
 
   paymentWebView(name: 'payment_webview', path: 'payment_webview');
 

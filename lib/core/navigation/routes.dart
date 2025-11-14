@@ -19,9 +19,12 @@ import 'package:app/features/shop/presentation/pages/search_products_page.dart';
 import 'package:app/features/cart/presentation/pages/cart_page.dart';
 import 'package:app/features/checkout/presentation/pages/checkout_page.dart';
 import 'package:app/features/checkout/presentation/pages/payment_webview.dart';
+import 'package:app/features/contract_generation/presentation/pages/contract_generation_page.dart';
+import 'package:app/features/contract_generation/presentation/pages/single_field_flow_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/intro/presentation/pages/intro_page.dart';
 import '../../features/news/presentation/pages/news_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
@@ -72,6 +75,21 @@ final routes = GoRouter(
               ),
         ),
       ],
+    ),
+    GoRoute(
+      path: AppRoutesNames.home.path,
+      name: AppRoutesNames.home.name,
+      builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: AppRoutesNames.contractGeneration.path,
+      name: AppRoutesNames.contractGeneration.name,
+      builder: (context, state) => const ContractGenerationPage(),
+    ),
+    GoRoute(
+      path: AppRoutesNames.contractGenerationSingleField.path,
+      name: AppRoutesNames.contractGenerationSingleField.name,
+      builder: (context, state) => const SingleFieldFlowPage(),
     ),
     ShellRoute(
       pageBuilder: (context, state, child) {
