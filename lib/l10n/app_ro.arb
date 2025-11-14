@@ -1,0 +1,544 @@
+{
+  "@@locale": "ro",
+
+  "appTitle": "ContractKiosk",
+  "@appTitle": {
+    "description": "Application title"
+  },
+
+  "contractGeneration": "Generare Contract",
+  "@contractGeneration": {
+    "description": "Contract generation feature name"
+  },
+
+  "salePurchaseContract": "Contract Vânzare-Cumpărare",
+  "@salePurchaseContract": {
+    "description": "Sale-purchase contract generation"
+  },
+
+  "loading": "Se încarcă...",
+  "@loading": {
+    "description": "Loading message"
+  },
+
+  "error": "Eroare",
+  "@error": {
+    "description": "Error message"
+  },
+
+  "fieldNotFound": "Câmpul nu a fost găsit",
+  "@fieldNotFound": {
+    "description": "Field not found error"
+  },
+
+  "failedToInitialize": "Inițializarea a eșuat",
+  "@failedToInitialize": {
+    "description": "Failed to initialize data manager"
+  },
+
+  "noCurrentField": "Niciun câmp curent",
+  "@noCurrentField": {
+    "description": "No current field"
+  },
+
+  "exitContractGeneration": "Ieșiți din generarea contractului?",
+  "@exitContractGeneration": {
+    "description": "Exit contract generation dialog title"
+  },
+
+  "progressSaved": "Progresul dvs. a fost salvat. Puteți continua mai târziu de unde ați rămas.",
+  "@progressSaved": {
+    "description": "Progress saved message"
+  },
+
+  "continueBtn": "Continuă",
+  "@continueBtn": {
+    "description": "Continue button"
+  },
+
+  "exitBtn": "Ieșire",
+  "@exitBtn": {
+    "description": "Exit button"
+  },
+
+  "previous": "Înapoi",
+  "@previous": {
+    "description": "Previous button"
+  },
+
+  "next": "Următorul",
+  "@next": {
+    "description": "Next button"
+  },
+
+  "skip": "Sari peste",
+  "@skip": {
+    "description": "Skip button"
+  },
+
+  "complete": "Finalizare",
+  "@complete": {
+    "description": "Complete button"
+  },
+
+  "done": "Terminat",
+  "@done": {
+    "description": "Done button"
+  },
+
+  "fieldXofY": "Câmpul {current} din {total}",
+  "@fieldXofY": {
+    "description": "Field counter",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+
+  "sellerInformation": "Informații Vânzător",
+  "@sellerInformation": {
+    "description": "Seller information section"
+  },
+
+  "buyerInformation": "Informații Cumpărător",
+  "@buyerInformation": {
+    "description": "Buyer information section"
+  },
+
+  "objectDetails": "Detalii Obiect",
+  "@objectDetails": {
+    "description": "Object details section"
+  },
+
+  "contractDetails": "Detalii Contract",
+  "@contractDetails": {
+    "description": "Contract details section"
+  },
+
+  "summary": "Sumar",
+  "@summary": {
+    "description": "Summary section"
+  },
+
+  "entityTypeSelection": "Selectare Tip Entitate",
+  "@entityTypeSelection": {
+    "description": "Entity type selection"
+  },
+
+  "pleaseSelectEntityType": "Vă rugăm să selectați tipul de entitate",
+  "@pleaseSelectEntityType": {
+    "description": "Please select entity type prompt"
+  },
+
+  "chooseEntityType": "Alegeți dacă aceasta este o persoană fizică sau o persoană juridică/companie",
+  "@chooseEntityType": {
+    "description": "Choose entity type description"
+  },
+
+  "individualPerson": "Persoană Fizică",
+  "@individualPerson": {
+    "description": "Individual person option"
+  },
+
+  "forPersonalTransactions": "Pentru tranzacții personale",
+  "@forPersonalTransactions": {
+    "description": "For personal transactions subtitle"
+  },
+
+  "companyLegalEntity": "Companie / Persoană Juridică",
+  "@companyLegalEntity": {
+    "description": "Company/legal entity option"
+  },
+
+  "forBusinessTransactions": "Pentru tranzacții de afaceri",
+  "@forBusinessTransactions": {
+    "description": "For business transactions subtitle"
+  },
+
+  "selectedIndividual": "Selectat: Persoană Fizică",
+  "@selectedIndividual": {
+    "description": "Selected individual confirmation"
+  },
+
+  "selectedCompany": "Selectat: Companie/Persoană Juridică",
+  "@selectedCompany": {
+    "description": "Selected company confirmation"
+  },
+
+  "entityTypeInfo": "Această selecție va determina ce documente și informații sunt necesare",
+  "@entityTypeInfo": {
+    "description": "Entity type information message"
+  },
+
+  "optionalFieldInfo": "Câmp opțional - puteți sări peste dacă nu este aplicabil",
+  "@optionalFieldInfo": {
+    "description": "Optional field information"
+  },
+
+  "yourProgress": "Progresul Dvs.",
+  "@yourProgress": {
+    "description": "Your progress header"
+  },
+
+  "completedFields": "{completed} din {total} câmpuri completate",
+  "@completedFields": {
+    "description": "Completed fields count",
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+
+  "contractSummary": "Sumar Contract",
+  "@contractSummary": {
+    "description": "Contract summary dialog title"
+  },
+
+  "reviewInformation": "Vă rugăm să revizuiți informațiile înainte de a genera contractul:",
+  "@reviewInformation": {
+    "description": "Review information prompt"
+  },
+
+  "reviewData": "Revizuiește Datele",
+  "@reviewData": {
+    "description": "Review data button"
+  },
+
+  "generateContract": "Generează Contract",
+  "@generateContract": {
+    "description": "Generate contract button"
+  },
+
+  "contractGeneratedSuccess": "Contract generat cu succes!",
+  "@contractGeneratedSuccess": {
+    "description": "Contract generated successfully message"
+  },
+
+  "contractGeneratedMessage": "Contractul dvs. a fost generat. Acum îl puteți tipări sau salva pentru evidențele dvs.",
+  "@contractGeneratedMessage": {
+    "description": "Contract generated message"
+  },
+
+  "close": "Închide",
+  "@close": {
+    "description": "Close button"
+  },
+
+  "printContract": "Tipărește Contract",
+  "@printContract": {
+    "description": "Print contract button"
+  },
+
+  "fullNameCompanyName": "Nume Complet / Denumire Companie",
+  "@fullNameCompanyName": {
+    "description": "Full name or company name field"
+  },
+
+  "enterFullLegalName": "Introduceți numele legal complet",
+  "@enterFullLegalName": {
+    "description": "Enter full legal name hint"
+  },
+
+  "cnpCui": "CNP / CUI",
+  "@cnpCui": {
+    "description": "CNP or CUI field"
+  },
+
+  "enterCnpOrCui": "Introduceți CNP (personal) sau CUI (companie)",
+  "@enterCnpOrCui": {
+    "description": "Enter CNP or CUI hint"
+  },
+
+  "idSeries": "Serie CI",
+  "@idSeries": {
+    "description": "ID series field"
+  },
+
+  "idSeriesHint": "ex., RX",
+  "@idSeriesHint": {
+    "description": "ID series hint"
+  },
+
+  "idNumber": "Număr CI",
+  "@idNumber": {
+    "description": "ID number field"
+  },
+
+  "enterIdNumber": "Introduceți numărul cărții de identitate",
+  "@enterIdNumber": {
+    "description": "Enter ID number hint"
+  },
+
+  "country": "Țară",
+  "@country": {
+    "description": "Country field"
+  },
+
+  "countryHint": "ex., România",
+  "@countryHint": {
+    "description": "Country hint"
+  },
+
+  "county": "Județ",
+  "@county": {
+    "description": "County field"
+  },
+
+  "countyHint": "ex., Cluj",
+  "@countyHint": {
+    "description": "County hint"
+  },
+
+  "city": "Oraș",
+  "@city": {
+    "description": "City field"
+  },
+
+  "cityHint": "ex., Cluj-Napoca",
+  "@cityHint": {
+    "description": "City hint"
+  },
+
+  "postalCode": "Cod Poștal",
+  "@postalCode": {
+    "description": "Postal code field"
+  },
+
+  "postalCodeHint": "ex., 400001",
+  "@postalCodeHint": {
+    "description": "Postal code hint"
+  },
+
+  "street": "Stradă",
+  "@street": {
+    "description": "Street field"
+  },
+
+  "enterStreetName": "Introduceți numele străzii",
+  "@enterStreetName": {
+    "description": "Enter street name hint"
+  },
+
+  "streetNumber": "Număr Stradă",
+  "@streetNumber": {
+    "description": "Street number field"
+  },
+
+  "streetNumberHint": "ex., 123",
+  "@streetNumberHint": {
+    "description": "Street number hint"
+  },
+
+  "phoneNumber": "Număr Telefon",
+  "@phoneNumber": {
+    "description": "Phone number field"
+  },
+
+  "phoneHint": "+40 123 456 789",
+  "@phoneHint": {
+    "description": "Phone number hint"
+  },
+
+  "emailOptional": "Email (Opțional)",
+  "@emailOptional": {
+    "description": "Email optional field"
+  },
+
+  "emailHint": "email@exemplu.com",
+  "@emailHint": {
+    "description": "Email hint"
+  },
+
+  "objectCategory": "Categorie Obiect",
+  "@objectCategory": {
+    "description": "Object category field"
+  },
+
+  "objectCategoryHint": "ex., Vehicul, Electronice, Imobiliare",
+  "@objectCategoryHint": {
+    "description": "Object category hint"
+  },
+
+  "objectDescription": "Descriere Obiect",
+  "@objectDescription": {
+    "description": "Object description field"
+  },
+
+  "objectDescriptionHint": "Descriere detaliată a obiectului",
+  "@objectDescriptionHint": {
+    "description": "Object description hint"
+  },
+
+  "brandOptional": "Marcă (Opțional)",
+  "@brandOptional": {
+    "description": "Brand optional field"
+  },
+
+  "brandHint": "ex., BMW, Samsung",
+  "@brandHint": {
+    "description": "Brand hint"
+  },
+
+  "modelOptional": "Model (Opțional)",
+  "@modelOptional": {
+    "description": "Model optional field"
+  },
+
+  "modelHint": "ex., X5, Galaxy S23",
+  "@modelHint": {
+    "description": "Model hint"
+  },
+
+  "serialNumberOptional": "Număr Serie (Opțional)",
+  "@serialNumberOptional": {
+    "description": "Serial number optional field"
+  },
+
+  "serialNumberHint": "Introduceți numărul de serie dacă este aplicabil",
+  "@serialNumberHint": {
+    "description": "Serial number hint"
+  },
+
+  "vinOptional": "VIN (Opțional)",
+  "@vinOptional": {
+    "description": "VIN optional field"
+  },
+
+  "vinHint": "Număr Identificare Vehicul",
+  "@vinHint": {
+    "description": "VIN hint"
+  },
+
+  "yearOptional": "An (Opțional)",
+  "@yearOptional": {
+    "description": "Year optional field"
+  },
+
+  "yearHint": "ex., 2023",
+  "@yearHint": {
+    "description": "Year hint"
+  },
+
+  "condition": "Stare",
+  "@condition": {
+    "description": "Condition field"
+  },
+
+  "conditionHint": "ex., Nou, Folosit, Recondițional",
+  "@conditionHint": {
+    "description": "Condition hint"
+  },
+
+  "contractPrice": "Preț Contract",
+  "@contractPrice": {
+    "description": "Contract price field"
+  },
+
+  "enterTotalPrice": "Introduceți prețul total",
+  "@enterTotalPrice": {
+    "description": "Enter total price hint"
+  },
+
+  "currency": "Monedă",
+  "@currency": {
+    "description": "Currency field"
+  },
+
+  "currencyHint": "ex., RON, EUR, USD",
+  "@currencyHint": {
+    "description": "Currency hint"
+  },
+
+  "paymentMethod": "Metodă Plată",
+  "@paymentMethod": {
+    "description": "Payment method field"
+  },
+
+  "paymentMethodHint": "ex., Numerar, Transfer Bancar, Card",
+  "@paymentMethodHint": {
+    "description": "Payment method hint"
+  },
+
+  "deliveryDate": "Data Livrare",
+  "@deliveryDate": {
+    "description": "Delivery date field"
+  },
+
+  "deliveryDateHint": "Când va avea loc livrarea?",
+  "@deliveryDateHint": {
+    "description": "Delivery date hint"
+  },
+
+  "contractLocation": "Locație Contract",
+  "@contractLocation": {
+    "description": "Contract location field"
+  },
+
+  "contractLocationHint": "Unde este semnat contractul?",
+  "@contractLocationHint": {
+    "description": "Contract location hint"
+  },
+
+  "additionalTermsOptional": "Termeni Suplimentari (Opțional)",
+  "@additionalTermsOptional": {
+    "description": "Additional terms optional field"
+  },
+
+  "additionalTermsHint": "Orice termeni sau condiții speciale",
+  "@additionalTermsHint": {
+    "description": "Additional terms hint"
+  },
+
+  "warrantyOptional": "Garanție (Opțional)",
+  "@warrantyOptional": {
+    "description": "Warranty optional field"
+  },
+
+  "warrantyHint": "Informații despre garanție",
+  "@warrantyHint": {
+    "description": "Warranty hint"
+  },
+
+  "fillAllRequired": "Vă rugăm să completați toate câmpurile obligatorii",
+  "@fillAllRequired": {
+    "description": "Fill all required fields message"
+  },
+
+  "virtualKeyboard": "Tastatură Virtuală",
+  "@virtualKeyboard": {
+    "description": "Virtual keyboard label"
+  },
+
+  "previousField": "Câmp Anterior",
+  "@previousField": {
+    "description": "Previous field tooltip"
+  },
+
+  "nextField": "Câmp Următor",
+  "@nextField": {
+    "description": "Next field tooltip"
+  },
+
+  "switchToNumeric": "Comutare la Numeric",
+  "@switchToNumeric": {
+    "description": "Switch to numeric keyboard"
+  },
+
+  "switchToAlphanumeric": "Comutare la Alfanumeric",
+  "@switchToAlphanumeric": {
+    "description": "Switch to alphanumeric keyboard"
+  },
+
+  "hideKeyboard": "Ascunde Tastatura",
+  "@hideKeyboard": {
+    "description": "Hide keyboard tooltip"
+  }
+}
