@@ -22,6 +22,7 @@ import 'package:app/features/checkout/presentation/pages/payment_webview.dart';
 import 'package:app/features/contract_generation/presentation/pages/contract_generation_page.dart';
 import 'package:app/features/contract_generation/presentation/pages/single_field_flow_page.dart';
 import 'package:app/features/contract_generation/presentation/pages/order_confirmation_demo_page.dart';
+import 'package:app/features/contract_generation/presentation/pages/order_completion_demo_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
@@ -96,6 +97,11 @@ final routes = GoRouter(
       path: AppRoutesNames.orderConfirmationDemo.path,
       name: AppRoutesNames.orderConfirmationDemo.name,
       builder: (context, state) => const OrderConfirmationDemoPage(),
+    ),
+    GoRoute(
+      path: AppRoutesNames.orderCompletion.path,
+      name: AppRoutesNames.orderCompletion.name,
+      builder: (context, state) => const OrderCompletionDemoPage(),
     ),
     ShellRoute(
       pageBuilder: (context, state, child) {

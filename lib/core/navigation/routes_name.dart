@@ -41,6 +41,10 @@ enum AppRoutesNames {
     name: 'order_confirmation_demo',
     path: '/order-confirmation-demo',
   ),
+  orderCompletion(
+    name: 'order_completion',
+    path: '/order-completion',
+  ),
 
   paymentWebView(name: 'payment_webview', path: 'payment_webview');
 
