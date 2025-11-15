@@ -8,12 +8,14 @@ class CheckoutModel extends Equatable {
   final ShippingAddressModel shipping;
   final bool billingSameAsShipping;
   final String lastDateModified;
+  final PaymentMethodModel? selectedPaymentMethod;
 
   const CheckoutModel({
     required this.billing,
     required this.shipping,
     this.billingSameAsShipping = false,
     required this.lastDateModified,
+    this.selectedPaymentMethod,
   });
 
   factory CheckoutModel.empty() {
@@ -32,6 +34,9 @@ class CheckoutModel extends Equatable {
       billingSameAsShipping: json['billing_same_as_shipping'] ?? false,
       lastDateModified:
           json['last_date_modified'] ?? DateTime.now().toIso8601String(),
+      selectedPaymentMethod: json['selected_payment_method'] != null
+          ? PaymentMethodModel.fromJson(json['selected_payment_method'])
+          : null,
     );
   }
 
@@ -41,6 +46,7 @@ class CheckoutModel extends Equatable {
       'shipping': shipping.toJson(),
       'billing_same_as_shipping': billingSameAsShipping,
       'last_date_modified': lastDateModified,
+      'selected_payment_method': selectedPaymentMethod?.toJson(),
     };
   }
 
@@ -54,6 +60,7 @@ class CheckoutModel extends Equatable {
     return CheckoutModel(
       billing: billing ?? this.billing,
       shipping: shipping ?? this.shipping,
+      selectedPaymentMethod: selectedPaymentMethod ?? this.selectedPaymentMethod,
       billingSameAsShipping:
           billingSameAsShipping ?? this.billingSameAsShipping,
       lastDateModified: lastDateModified ?? DateTime.now().toIso8601String(),
@@ -80,7 +87,7 @@ class CheckoutModel extends Equatable {
   }
 
   bool get isComplete {
-    return billing.isComplete && shipping.isComplete;
+    return billing.isComplete && shipping.isComplete && selectedPaymentMethod != null;
   }
 
   bool get hasValidAddresses {
@@ -93,5 +100,6 @@ class CheckoutModel extends Equatable {
     shipping,
     billingSameAsShipping,
     lastDateModified,
+    selectedPaymentMethod,
   ];
 }

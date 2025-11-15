@@ -152,6 +152,8 @@ class CheckoutCubit extends Cubit<CheckoutState> {
           shippingPostcode: state.checkout.shipping.postcode,
           shippingCountry: state.checkout.shipping.country,
           lineItems: cart.items,
+          paymentMethod: state.checkout.selectedPaymentMethod?.id ?? '',
+          paymentMethodTitle: state.checkout.selectedPaymentMethod?.name ?? '',
         ),
       );
       sl.get<CheckoutService>().saveInfo(state.checkout);

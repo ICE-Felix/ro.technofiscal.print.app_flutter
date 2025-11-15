@@ -21,6 +21,8 @@ class OrderParams {
   final String shippingPostcode;
   final String shippingCountry;
   final List<CartItemModel> lineItems;
+  final String paymentMethod;
+  final String paymentMethodTitle;
 
   OrderParams({
     required this.billingFirstName,
@@ -40,6 +42,8 @@ class OrderParams {
     required this.shippingPostcode,
     required this.shippingCountry,
     required this.lineItems,
+    required this.paymentMethod,
+    required this.paymentMethodTitle,
   });
 }
 
@@ -53,6 +57,8 @@ class PlaceOrderUsecase extends UseCase<String, OrderParams> {
     return await orderRepository.createOrder(
       OrderRequestModel(
         currency: 'RON',
+        paymentMethod: paramas.paymentMethod,
+        paymentMethodTitle: paramas.paymentMethodTitle,
         setPaid: false,
         billing: Billing(
           firstName: paramas.billingFirstName,

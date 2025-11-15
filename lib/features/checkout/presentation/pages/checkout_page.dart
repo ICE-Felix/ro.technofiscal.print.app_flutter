@@ -9,6 +9,8 @@ import '../cubit/checkout_cubit.dart';
 import '../widgets/billing_form.dart';
 import '../widgets/shipping_form.dart';
 import '../widgets/billing_same_as_shipping_checkbox.dart';
+import '../widgets/payment_method_selector.dart';
+import '../../domain/models/payment_method_model.dart';
 
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
@@ -103,6 +105,17 @@ class CheckoutPageView extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                 ],
+
+                // Payment Method Selector
+                PaymentMethodSelector(
+                  paymentMethods: PaymentMethodModel.getDefaultPaymentMethods(),
+                  selectedMethod: state.checkout.selectedPaymentMethod,
+                  onMethodSelected: (method) {
+                    context.read<CheckoutCubit>().updatePaymentMethod(method);
+                  },
+                ),
+
+                const SizedBox(height: 32),
 
                 // Checkout Summary
                 _CheckoutSummaryCard(
