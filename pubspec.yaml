@@ -67,6 +67,8 @@ dependencies:
   pdf: ^3.11.1
   printing: ^5.13.2
   path_provider: ^2.1.4
+  wakelock_plus: ^1.2.8
+  flutter_windowmanager: ^0.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import '../../../../core/navigation/routes_name.dart';
 import '../../../../core/style/app_colors.dart';
 import '../../../../core/style/app_theme.dart';
 import '../../../../core/localization/app_localization.dart';
+import '../../../../core/services/kiosk_mode_service.dart';
 import '../widgets/info_card.dart';
 import '../widgets/service_card.dart';
 
@@ -67,6 +69,19 @@ class HomePage extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
+          // Kiosk mode toggle (debug only)
+          if (kDebugMode)
+            IconButton(
+              onPressed: () {
+                _showKioskModeDialog(context);
+              },
+              icon: const Icon(Icons.fullscreen),
+              tooltip: 'Kiosk Mode Settings (Debug)',
+              style: IconButton.styleFrom(
+                foregroundColor: AppColors.kioskBlue,
+              ),
+            ),
+          if (kDebugMode) const SizedBox(width: 8),
           // Language selector
           _LanguageSelector(),
           const SizedBox(width: 8),
@@ -273,6 +288,58 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showKioskModeDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: AppColors.kioskBlue,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(4),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                    const SizedBox(width: 16),
+                    const Text(
+                      'Kiosk Mode Settings',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(Icons.close, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(24),
+                child: KioskModeToggle(),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

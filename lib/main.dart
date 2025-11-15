@@ -15,6 +15,7 @@ import 'features/news/presentation/bloc/news_bloc.dart';
 import 'firebase_options.dart';
 import '../core/services/firebase_messaging_service.dart';
 import 'features/notifications/presentation/bloc/notification_bloc.dart';
+import 'core/services/kiosk_mode_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,12 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
   // Initialize dependency injection
   await initServiceLocator();
+
+  // Enable kiosk mode for production
+  // Comment this line during development if needed
+  if (kReleaseMode) {
+    await KioskModeService.enable();
+  }
 
   runApp(const MyApp());
 }
@@ -55,11 +62,14 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: LocalizationProvider(
-        child: MaterialApp.router(
-          title: 'Mommy HAI',
-          theme: AppTheme.lightTheme,
-          themeMode: ThemeMode.light,
-          routerConfig: routes,
+        child: KioskModeWrapper(
+          enableKioskMode: kReleaseMode, // Enable in release mode only
+          child: MaterialApp.router(
+            title: 'Mommy HAI',
+            theme: AppTheme.lightTheme,
+            themeMode: ThemeMode.light,
+            routerConfig: routes,
+          ),
         ),
       ),
     );
