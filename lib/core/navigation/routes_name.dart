@@ -49,6 +49,14 @@ enum AppRoutesNames {
     name: 'printer_settings',
     path: '/printer-settings',
   ),
+  fiscalPrinter(
+    name: 'fiscal_printer',
+    path: '/fiscal-printer',
+  ),
+  paymentTerminal(
+    name: 'payment_terminal',
+    path: '/payment-terminal',
+  ),
 
   paymentWebView(name: 'payment_webview', path: 'payment_webview');
 

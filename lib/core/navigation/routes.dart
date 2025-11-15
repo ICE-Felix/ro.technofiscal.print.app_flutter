@@ -24,6 +24,8 @@ import 'package:app/features/contract_generation/presentation/pages/single_field
 import 'package:app/features/contract_generation/presentation/pages/order_confirmation_demo_page.dart';
 import 'package:app/features/contract_generation/presentation/pages/order_completion_demo_page.dart';
 import 'package:app/features/contract_generation/presentation/pages/printer_settings_page.dart';
+import 'package:app/features/contract_generation/presentation/pages/fiscal_printer_page.dart';
+import 'package:app/features/contract_generation/presentation/pages/payment_terminal_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
@@ -98,6 +100,16 @@ final routes = GoRouter(
       path: AppRoutesNames.printerSettings.path,
       name: AppRoutesNames.printerSettings.name,
       builder: (context, state) => const PrinterSettingsPage(),
+    ),
+    GoRoute(
+      path: AppRoutesNames.fiscalPrinter.path,
+      name: AppRoutesNames.fiscalPrinter.name,
+      builder: (context, state) => const FiscalPrinterPage(),
+    ),
+    GoRoute(
+      path: AppRoutesNames.paymentTerminal.path,
+      name: AppRoutesNames.paymentTerminal.name,
+      builder: (context, state) => const PaymentTerminalPage(),
     ),
     GoRoute(
       path: AppRoutesNames.orderConfirmationDemo.path,
