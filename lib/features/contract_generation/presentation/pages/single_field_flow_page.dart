@@ -4,6 +4,7 @@ import '../../data/contract_data_manager.dart';
 import '../widgets/single_field_screen_with_keyboard.dart';
 import '../widgets/entity_type_selection_screen.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/localization/app_localization.dart';
 
 /// Main page that orchestrates the single-field-per-screen flow
 /// Similar to Kivy's ScreenManager
@@ -76,8 +77,8 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
     // Check if all required fields are filled
     if (!_dataManager!.isComplete()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please fill in all required fields'),
+        SnackBar(
+          content: Text(context.getString(label: 'contractGeneration.fillAllRequired')),
           backgroundColor: Colors.orange,
         ),
       );
@@ -101,12 +102,12 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Row(
+      builder: (dialogContext) => AlertDialog(
+        title: Row(
           children: [
-            Icon(Icons.check_circle, color: Colors.green),
-            SizedBox(width: 8),
-            Text('Contract Summary'),
+            const Icon(Icons.check_circle, color: Colors.green),
+            const SizedBox(width: 8),
+            Text(context.getString(label: 'contractGeneration.contractSummary')),
           ],
         ),
         content: SizedBox(
@@ -116,9 +117,9 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Please review the information before generating the contract:',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Text(
+                  context.getString(label: 'contractGeneration.reviewInformation'),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 ...summaryBySection.entries.map((section) {
@@ -168,16 +169,16 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Review Data'),
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(context.getString(label: 'contractGeneration.reviewData')),
           ),
           ElevatedButton.icon(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(dialogContext).pop();
               _generateContract();
             },
             icon: const Icon(Icons.description),
-            label: const Text('Generate Contract'),
+            label: Text(context.getString(label: 'contractGeneration.generateContract')),
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColor,
               foregroundColor: Colors.white,
@@ -193,18 +194,18 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         icon: Icon(
           Icons.check_circle,
           color: Colors.green[600],
           size: 64,
         ),
-        title: const Text(
-          'Contract Generated Successfully!',
+        title: Text(
+          context.getString(label: 'contractGeneration.contractGeneratedSuccess'),
           textAlign: TextAlign.center,
         ),
-        content: const Text(
-          'Your contract has been generated. You can now print it or save it for your records.',
+        content: Text(
+          context.getString(label: 'contractGeneration.contractGeneratedMessage'),
           textAlign: TextAlign.center,
         ),
         actions: [
@@ -212,19 +213,19 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
             onPressed: () {
               // Clear data and return to home
               _dataManager?.clearAll();
-              Navigator.of(context).pop();
-              context.go('/');
+              Navigator.of(dialogContext).pop();
+              if (mounted) context.go('/');
             },
-            child: const Text('Close'),
+            child: Text(context.getString(label: 'contractGeneration.close')),
           ),
           ElevatedButton.icon(
             onPressed: () {
               // TODO: Implement print functionality
-              Navigator.of(context).pop();
-              context.go('/');
+              Navigator.of(dialogContext).pop();
+              if (mounted) context.go('/');
             },
             icon: const Icon(Icons.print),
-            label: const Text('Print Contract'),
+            label: Text(context.getString(label: 'contractGeneration.printContract')),
           ),
         ],
       ),
@@ -259,7 +260,7 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Loading...'),
+          title: Text(context.getString(label: 'contractGeneration.loading')),
         ),
         body: const Center(
           child: CircularProgressIndicator(),
@@ -270,10 +271,10 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
     if (_dataManager == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Error'),
+          title: Text(context.getString(label: 'contractGeneration.error')),
         ),
-        body: const Center(
-          child: Text('Failed to initialize data manager'),
+        body: Center(
+          child: Text(context.getString(label: 'contractGeneration.failedToInitialize')),
         ),
       );
     }
@@ -281,10 +282,10 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
     if (_currentFieldKey == null) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Error'),
+          title: Text(context.getString(label: 'contractGeneration.error')),
         ),
-        body: const Center(
-          child: Text('No current field'),
+        body: Center(
+          child: Text(context.getString(label: 'contractGeneration.noCurrentField')),
         ),
       );
     }
@@ -297,19 +298,19 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
         // Show confirmation dialog before leaving
         final shouldPop = await showDialog<bool>(
           context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Exit Contract Generation?'),
-            content: const Text(
-              'Your progress has been saved. You can continue later from where you left off.',
+          builder: (dialogContext) => AlertDialog(
+            title: Text(context.getString(label: 'contractGeneration.exitContractGeneration')),
+            content: Text(
+              context.getString(label: 'contractGeneration.progressSaved'),
             ),
             actions: [
               TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Continue'),
+                onPressed: () => Navigator.of(dialogContext).pop(false),
+                child: Text(context.getString(label: 'contractGeneration.continueBtn')),
               ),
               ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Exit'),
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                child: Text(context.getString(label: 'contractGeneration.exitBtn')),
               ),
             ],
           ),

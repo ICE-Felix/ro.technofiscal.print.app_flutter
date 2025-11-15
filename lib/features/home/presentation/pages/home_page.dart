@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/navigation/routes_name.dart';
 import '../../../../core/style/app_colors.dart';
 import '../../../../core/style/app_theme.dart';
+import '../../../../core/localization/app_localization.dart';
 import '../widgets/info_card.dart';
 import '../widgets/service_card.dart';
 
@@ -41,6 +44,32 @@ class HomePage extends StatelessWidget {
           ],
         ),
         actions: [
+          // Debug button to clear contract data
+          IconButton(
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.remove('contract_data');
+              await prefs.remove('current_field');
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Contract data cleared!'),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              }
+            },
+            icon: const Icon(Icons.delete_outline),
+            tooltip: 'Clear Contract Data (Debug)',
+            style: IconButton.styleFrom(
+              foregroundColor: Colors.red,
+            ),
+          ),
+          const SizedBox(width: 8),
+          // Language selector
+          _LanguageSelector(),
+          const SizedBox(width: 8),
           TextButton.icon(
             onPressed: () {
               // TODO: Show help dialog
@@ -244,6 +273,61 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Language selector dropdown widget
+class _LanguageSelector extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final localizationCubit = context.watch<LocalizationCubit>();
+    final currentLocale = localizationCubit.currentLocale;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: AppColors.gray100,
+        borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: DropdownButton<String>(
+        value: currentLocale,
+        underline: const SizedBox(),
+        icon: const Icon(Icons.language, size: 20),
+        style: const TextStyle(
+          color: AppColors.textPrimary,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        items: const [
+          DropdownMenuItem(
+            value: 'ro',
+            child: Row(
+              children: [
+                Text('🇷🇴', style: TextStyle(fontSize: 18)),
+                SizedBox(width: 8),
+                Text('Română'),
+              ],
+            ),
+          ),
+          DropdownMenuItem(
+            value: 'en',
+            child: Row(
+              children: [
+                Text('🇬🇧', style: TextStyle(fontSize: 18)),
+                SizedBox(width: 8),
+                Text('English'),
+              ],
+            ),
+          ),
+        ],
+        onChanged: (String? newLocale) {
+          if (newLocale != null && newLocale != currentLocale) {
+            localizationCubit.changeLocale(newLocale);
+          }
+        },
       ),
     );
   }

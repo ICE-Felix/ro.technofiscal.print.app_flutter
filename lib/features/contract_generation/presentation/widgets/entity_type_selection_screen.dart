@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/contract_data_manager.dart';
+import '../../../../core/localization/app_localization.dart';
 
 /// Special screen for entity type selection (first step)
 /// Uses large buttons instead of text input
@@ -17,12 +18,14 @@ class EntityTypeSelectionScreen extends StatelessWidget {
     this.onPrevious,
   });
 
-  String get _title {
-    return fieldKey.startsWith('seller') ? 'Seller Information' : 'Buyer Information';
+  String _title(BuildContext context) {
+    return fieldKey.startsWith('seller')
+        ? context.getString(label: 'contractGeneration.sellerInformation')
+        : context.getString(label: 'contractGeneration.buyerInformation');
   }
 
-  String get _subtitle {
-    return 'Please select the entity type';
+  String _subtitle(BuildContext context) {
+    return context.getString(label: 'contractGeneration.pleaseSelectEntityType');
   }
 
   void _handleSelection(BuildContext context, String entityType) {
@@ -35,8 +38,8 @@ class EntityTypeSelectionScreen extends StatelessWidget {
       SnackBar(
         content: Text(
           entityType == 'individual'
-              ? 'Selected: Individual Person'
-              : 'Selected: Company/Legal Entity',
+              ? context.getString(label: 'contractGeneration.selectedIndividual')
+              : context.getString(label: 'contractGeneration.selectedCompany'),
         ),
         duration: const Duration(milliseconds: 800),
         backgroundColor: Colors.green,
@@ -61,12 +64,12 @@ class EntityTypeSelectionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              _title,
+              _title(context),
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              'Entity Type Selection',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+            Text(
+              context.getString(label: 'contractGeneration.entityTypeSelection'),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),
           ],
         ),
@@ -117,7 +120,7 @@ class EntityTypeSelectionScreen extends StatelessWidget {
 
                   // Title
                   Text(
-                    _subtitle,
+                    _subtitle(context),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 24,
@@ -128,7 +131,7 @@ class EntityTypeSelectionScreen extends StatelessWidget {
 
                   // Description
                   Text(
-                    'Choose whether this is an individual person or a company/legal entity',
+                    context.getString(label: 'contractGeneration.chooseEntityType'),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
@@ -140,8 +143,8 @@ class EntityTypeSelectionScreen extends StatelessWidget {
                   // Individual Button
                   _EntityTypeButton(
                     icon: Icons.person,
-                    title: 'Individual Person',
-                    subtitle: 'For personal transactions',
+                    title: context.getString(label: 'contractGeneration.individualPerson'),
+                    subtitle: context.getString(label: 'contractGeneration.forPersonalTransactions'),
                     isSelected: existingValue == 'individual',
                     color: Colors.blue,
                     onTap: () => _handleSelection(context, 'individual'),
@@ -152,8 +155,8 @@ class EntityTypeSelectionScreen extends StatelessWidget {
                   // Company Button
                   _EntityTypeButton(
                     icon: Icons.business,
-                    title: 'Company / Legal Entity',
-                    subtitle: 'For business transactions',
+                    title: context.getString(label: 'contractGeneration.companyLegalEntity'),
+                    subtitle: context.getString(label: 'contractGeneration.forBusinessTransactions'),
                     isSelected: existingValue == 'company',
                     color: Colors.green,
                     onTap: () => _handleSelection(context, 'company'),
@@ -175,7 +178,7 @@ class EntityTypeSelectionScreen extends StatelessWidget {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            'This selection will determine which documents and information are required',
+                            context.getString(label: 'contractGeneration.entityTypeInfo'),
                             style: TextStyle(
                               color: Colors.blue[700],
                               fontSize: 14,
@@ -215,7 +218,7 @@ class EntityTypeSelectionScreen extends StatelessWidget {
                         child: OutlinedButton.icon(
                           onPressed: onPrevious,
                           icon: const Icon(Icons.arrow_back),
-                          label: const Text('Previous'),
+                          label: Text(context.getString(label: 'contractGeneration.previous')),
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 16),
                           ),
