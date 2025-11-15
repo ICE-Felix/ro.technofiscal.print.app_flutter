@@ -37,6 +37,10 @@ enum AppRoutesNames {
     name: 'contract_generation_single_field',
     path: '/contract-generation-single-field',
   ),
+  orderConfirmationDemo(
+    name: 'order_confirmation_demo',
+    path: '/order-confirmation-demo',
+  ),
 
   paymentWebView(name: 'payment_webview', path: 'payment_webview');
 
