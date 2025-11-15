@@ -45,6 +45,10 @@ enum AppRoutesNames {
     name: 'order_completion',
     path: '/order-completion',
   ),
+  printerSettings(
+    name: 'printer_settings',
+    path: '/printer-settings',
+  ),
 
   paymentWebView(name: 'payment_webview', path: 'payment_webview');
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
 import '../../../../core/style/app_colors.dart';
 import '../../../../core/services/pdf_service.dart';
+import '../../../../core/services/printer_service.dart';
 
 /// Dialog with PDF actions after contract generation
 class PdfActionDialog extends StatelessWidget {
@@ -196,13 +197,54 @@ class PdfActionDialog extends StatelessWidget {
 
   Future<void> _printPdf(BuildContext context) async {
     try {
-      await PdfService.printPdf(pdf);
+      // Get printer service
+      final printerService = MockPrinterService();
+
+      // Check if printer is ready
+      final defaultPrinter = await printerService.getDefaultPrinter();
+      if (defaultPrinter == null) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Nicio imprimantă disponibilă'),
+              backgroundColor: AppColors.error,
+            ),
+          );
+        }
+        return;
+      }
+
+      final isReady = await printerService.isPrinterReady(defaultPrinter.id);
+      if (!isReady) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Imprimanta ${defaultPrinter.name} nu este pregătită'),
+              backgroundColor: AppColors.warning,
+            ),
+          );
+        }
+        return;
+      }
+
+      // Get PDF bytes
+      final pdfBytes = await pdf.save();
+
+      // Submit print job
+      final jobId = await printerService.printPdf(
+        pdfBytes: pdfBytes,
+        fileName: fileName,
+        copies: 1,
+        quality: PrintQuality.normal,
+        paperSize: PaperSize.a4,
+      );
 
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Document trimis la imprimantă'),
+          SnackBar(
+            content: Text('Document trimis la imprimantă\nJob ID: $jobId'),
             backgroundColor: AppColors.success,
+            duration: const Duration(seconds: 3),
           ),
         );
       }
