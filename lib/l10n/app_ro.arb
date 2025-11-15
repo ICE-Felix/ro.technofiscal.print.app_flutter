@@ -540,5 +540,263 @@
   "hideKeyboard": "Ascunde Tastatura",
   "@hideKeyboard": {
     "description": "Hide keyboard tooltip"
+  },
+
+  "orderSummary": "Sumar Comandă",
+  "@orderSummary": {
+    "description": "Order summary title"
+  },
+
+  "reviewAllInformation": "Revizuiți toate informațiile înainte de a genera contractul",
+  "@reviewAllInformation": {
+    "description": "Review all information before generating"
+  },
+
+  "vehicleInformation": "Informații Vehicul",
+  "@vehicleInformation": {
+    "description": "Vehicle information section"
+  },
+
+  "vehicleDetails": "Detalii Vehicul",
+  "@vehicleDetails": {
+    "description": "Vehicle details title"
+  },
+
+  "edit": "Editează",
+  "@edit": {
+    "description": "Edit button"
+  },
+
+  "name": "Nume",
+  "@name": {
+    "description": "Name label"
+  },
+
+  "idCard": "Carte Identitate",
+  "@idCard": {
+    "description": "ID Card label"
+  },
+
+  "phone": "Telefon",
+  "@phone": {
+    "description": "Phone label"
+  },
+
+  "email": "Email",
+  "@email": {
+    "description": "Email label"
+  },
+
+  "address": "Adresă",
+  "@address": {
+    "description": "Address label"
+  },
+
+  "category": "Categorie",
+  "@category": {
+    "description": "Category label"
+  },
+
+  "brand": "Marcă",
+  "@brand": {
+    "description": "Brand label"
+  },
+
+  "model": "Model",
+  "@model": {
+    "description": "Model label"
+  },
+
+  "year": "An",
+  "@year": {
+    "description": "Year label"
+  },
+
+  "vin": "VIN",
+  "@vin": {
+    "description": "VIN label"
+  },
+
+  "registration": "Înmatriculare",
+  "@registration": {
+    "description": "Registration label"
+  },
+
+  "color": "Culoare",
+  "@color": {
+    "description": "Color label"
+  },
+
+  "mileage": "Kilometraj",
+  "@mileage": {
+    "description": "Mileage label"
+  },
+
+  "engine": "Motor",
+  "@engine": {
+    "description": "Engine label"
+  },
+
+  "fuelType": "Tip Combustibil",
+  "@fuelType": {
+    "description": "Fuel type label"
+  },
+
+  "additionalNotes": "Note Adiționale",
+  "@additionalNotes": {
+    "description": "Additional notes label"
+  },
+
+  "salePrice": "Preț Vânzare",
+  "@salePrice": {
+    "description": "Sale price label"
+  },
+
+  "contractDate": "Data Contract",
+  "@contractDate": {
+    "description": "Contract date label"
+  },
+
+  "handoverDate": "Data Predare",
+  "@handoverDate": {
+    "description": "Handover date label"
+  },
+
+  "specialConditions": "Condiții Speciale",
+  "@specialConditions": {
+    "description": "Special conditions label"
+  },
+
+  "contractType": "Tip Contract",
+  "@contractType": {
+    "description": "Contract type label"
+  },
+
+  "vehicleSale": "Vânzare Vehicul",
+  "@vehicleSale": {
+    "description": "Vehicle sale type"
+  },
+
+  "documentPages": "Pagini Document",
+  "@documentPages": {
+    "description": "Document pages label"
+  },
+
+  "pages": "pagini",
+  "@pages": {
+    "description": "Pages suffix"
+  },
+
+  "copiesToPrint": "Copii de Tipărit",
+  "@copiesToPrint": {
+    "description": "Copies to print label"
+  },
+
+  "printingFee": "Taxa Tipărire",
+  "@printingFee": {
+    "description": "Printing fee label"
+  },
+
+  "serviceFee": "Taxa Serviciu",
+  "@serviceFee": {
+    "description": "Service fee label"
+  },
+
+  "totalCost": "Cost Total",
+  "@totalCost": {
+    "description": "Total cost label"
+  },
+
+  "cardPayment": "Plată Card",
+  "@cardPayment": {
+    "description": "Card payment option"
+  },
+
+  "creditDebitCard": "Card Credit/Debit",
+  "@creditDebitCard": {
+    "description": "Credit/debit card subtitle"
+  },
+
+  "cashPayment": "Plată Numerar",
+  "@cashPayment": {
+    "description": "Cash payment option"
+  },
+
+  "payAtCounter": "Plătește la casă",
+  "@payAtCounter": {
+    "description": "Pay at counter subtitle"
+  },
+
+  "acceptTerms": "Accept termenii și condițiile",
+  "@acceptTerms": {
+    "description": "Accept terms checkbox"
+  },
+
+  "confirmAccuracy": "Confirm că toate informațiile furnizate sunt corecte și sunt de acord cu termenii serviciului",
+  "@confirmAccuracy": {
+    "description": "Confirm accuracy message"
+  },
+
+  "finalVerification": "Verificare Finală",
+  "@finalVerification": {
+    "description": "Final verification title"
+  },
+
+  "reviewCarefully": "Vă rugăm să revizuiți cu atenție toate informațiile. Odată ce continuați la plată, contractul va fi generat și tipărit. Asigurați-vă că toate detaliile sunt corecte înainte de confirmare.",
+  "@reviewCarefully": {
+    "description": "Review carefully message"
+  },
+
+  "back": "Înapoi",
+  "@back": {
+    "description": "Back button"
+  },
+
+  "preview": "Previzualizare",
+  "@preview": {
+    "description": "Preview button"
+  },
+
+  "saveDraft": "Salvează Ciornă",
+  "@saveDraft": {
+    "description": "Save draft button"
+  },
+
+  "proceedToPayment": "Continuă la Plată",
+  "@proceedToPayment": {
+    "description": "Proceed to payment button"
+  },
+
+  "systemOnline": "Sistem Online",
+  "@systemOnline": {
+    "description": "System online status"
+  },
+
+  "printerReady": "Imprimantă Pregătită",
+  "@printerReady": {
+    "description": "Printer ready status"
+  },
+
+  "sessionId": "ID Sesiune",
+  "@sessionId": {
+    "description": "Session ID label"
+  },
+
+  "stepXofY": "Pasul {current} din {total}",
+  "@stepXofY": {
+    "description": "Step counter",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+
+  "finalReviewBeforePrinting": "Revizuire finală înainte de tipărire",
+  "@finalReviewBeforePrinting": {
+    "description": "Final review before printing subtitle"
   }
 }

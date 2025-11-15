@@ -3,6 +3,7 @@ import '../../data/field_registry.dart';
 import '../../data/contract_data_manager.dart';
 import '../widgets/single_field_screen_with_keyboard.dart';
 import '../widgets/entity_type_selection_screen.dart';
+import 'contract_checkout_page.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/localization/app_localization.dart';
 
@@ -175,7 +176,7 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
           ElevatedButton.icon(
             onPressed: () {
               Navigator.of(dialogContext).pop();
-              _generateContract();
+              _navigateToCheckout();
             },
             icon: const Icon(Icons.description),
             label: Text(context.getString(label: 'contractGeneration.generateContract')),
@@ -189,7 +190,30 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
     );
   }
 
-  void _generateContract() {
+  void _navigateToCheckout() {
+    if (_dataManager == null) return;
+
+    // Build contract model from data
+    final contract = _dataManager!.toContractModel();
+
+    // Navigate to checkout page
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ContractCheckoutPage(
+          contract: contract,
+          onBack: () {
+            Navigator.of(context).pop();
+          },
+          onProceedToPayment: () {
+            // TODO: Implement payment processing
+            _handlePaymentCompletion();
+          },
+        ),
+      ),
+    );
+  }
+
+  void _handlePaymentCompletion() {
     // Show success dialog
     showDialog(
       context: context,
@@ -214,7 +238,10 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
               // Clear data and return to home
               _dataManager?.clearAll();
               Navigator.of(dialogContext).pop();
-              if (mounted) context.go('/');
+              if (mounted) {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                context.go('/');
+              }
             },
             child: Text(context.getString(label: 'contractGeneration.close')),
           ),
@@ -222,7 +249,10 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
             onPressed: () {
               // TODO: Implement print functionality
               Navigator.of(dialogContext).pop();
-              if (mounted) context.go('/');
+              if (mounted) {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                context.go('/');
+              }
             },
             icon: const Icon(Icons.print),
             label: Text(context.getString(label: 'contractGeneration.printContract')),

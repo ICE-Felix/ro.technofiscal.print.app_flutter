@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'field_registry.dart';
+import 'models/contract_model.dart';
+import 'models/party_model.dart';
+import 'models/address_model.dart';
 
 /// Manages contract data persistence using SharedPreferences
 /// Similar to Kivy's DataManager but uses SharedPreferences instead of JSON files
@@ -278,5 +281,134 @@ class ContractDataManager {
   Future<void> restoreFromSnapshot(Map<String, dynamic> snapshot) async {
     _data = Map<String, dynamic>.from(snapshot);
     await _saveData();
+  }
+
+  /// Build ContractModel from stored data
+  ContractModel toContractModel() {
+    // Helper function to parse EntityType
+    EntityType parseEntityType(String? value) {
+      if (value == null || value.isEmpty) return EntityType.individual;
+      if (value.toLowerCase().contains('company') || value.toLowerCase().contains('juridică')) {
+        return EntityType.company;
+      }
+      return EntityType.individual;
+    }
+
+    // Build seller address
+    final sellerAddress = AddressModel(
+      country: getFieldAsString('seller_country', defaultValue: 'Romania'),
+      county: getFieldAsString('seller_county'),
+      city: getFieldAsString('seller_city'),
+      postalCode: getFieldAsString('seller_postal_code'),
+      street: getFieldAsString('seller_street'),
+      streetNumber: getFieldAsString('seller_street_number'),
+    );
+
+    // Build seller party
+    final seller = PartyModel(
+      entityType: parseEntityType(getFieldAsString('seller_entity_type')),
+      fullName: getFieldAsString('seller_full_name'),
+      cnp: getFieldAsString('seller_cnp'),
+      idSeries: getFieldAsString('seller_id_series'),
+      idNumber: getFieldAsString('seller_id_number'),
+      address: sellerAddress,
+      phone: getFieldAsString('seller_phone'),
+      email: getFieldAsString('seller_email'),
+    );
+
+    // Build buyer address
+    final buyerAddress = AddressModel(
+      country: getFieldAsString('buyer_country', defaultValue: 'Romania'),
+      county: getFieldAsString('buyer_county'),
+      city: getFieldAsString('buyer_city'),
+      postalCode: getFieldAsString('buyer_postal_code'),
+      street: getFieldAsString('buyer_street'),
+      streetNumber: getFieldAsString('buyer_street_number'),
+    );
+
+    // Build buyer party
+    final buyer = PartyModel(
+      entityType: parseEntityType(getFieldAsString('buyer_entity_type')),
+      fullName: getFieldAsString('buyer_full_name'),
+      cnp: getFieldAsString('buyer_cnp'),
+      idSeries: getFieldAsString('buyer_id_series'),
+      idNumber: getFieldAsString('buyer_id_number'),
+      address: buyerAddress,
+      phone: getFieldAsString('buyer_phone'),
+      email: getFieldAsString('buyer_email'),
+    );
+
+    // Build object details string
+    final objectDetails = _buildObjectDetails();
+
+    // Build contract details string
+    final contractDetails = _buildContractDetails();
+
+    // Parse price
+    final priceString = getFieldAsString('contract_price');
+    final price = double.tryParse(priceString.replaceAll(RegExp(r'[^\d.]'), '')) ?? 0.0;
+
+    return ContractModel(
+      seller: seller,
+      buyer: buyer,
+      objectDetails: objectDetails,
+      contractDetails: contractDetails,
+      price: price,
+      createdAt: DateTime.now(),
+      isComplete: isComplete(),
+    );
+  }
+
+  /// Build object details string from fields
+  String _buildObjectDetails() {
+    final parts = <String>[];
+
+    final category = getFieldAsString('object_category');
+    if (category.isNotEmpty) parts.add('Category: $category');
+
+    final description = getFieldAsString('object_description');
+    if (description.isNotEmpty) parts.add(description);
+
+    final brand = getFieldAsString('object_brand');
+    final model = getFieldAsString('object_model');
+    if (brand.isNotEmpty || model.isNotEmpty) {
+      parts.add('${brand.isNotEmpty ? brand : ''} ${model.isNotEmpty ? model : ''}'.trim());
+    }
+
+    final year = getFieldAsString('object_year');
+    if (year.isNotEmpty) parts.add('Year: $year');
+
+    final vin = getFieldAsString('object_vin');
+    if (vin.isNotEmpty) parts.add('VIN: $vin');
+
+    final serialNumber = getFieldAsString('object_serial_number');
+    if (serialNumber.isNotEmpty) parts.add('Serial Number: $serialNumber');
+
+    final condition = getFieldAsString('object_condition');
+    if (condition.isNotEmpty) parts.add('Condition: $condition');
+
+    return parts.join('\n');
+  }
+
+  /// Build contract details string from fields
+  String _buildContractDetails() {
+    final parts = <String>[];
+
+    final paymentMethod = getFieldAsString('contract_payment_method');
+    if (paymentMethod.isNotEmpty) parts.add('Payment Method: $paymentMethod');
+
+    final deliveryDate = getFieldAsString('contract_delivery_date');
+    if (deliveryDate.isNotEmpty) parts.add('Delivery Date: $deliveryDate');
+
+    final location = getFieldAsString('contract_location');
+    if (location.isNotEmpty) parts.add('Location: $location');
+
+    final additionalTerms = getFieldAsString('contract_additional_terms');
+    if (additionalTerms.isNotEmpty) parts.add('Additional Terms: $additionalTerms');
+
+    final warranty = getFieldAsString('contract_warranty');
+    if (warranty.isNotEmpty) parts.add('Warranty: $warranty');
+
+    return parts.join('\n');
   }
 }
