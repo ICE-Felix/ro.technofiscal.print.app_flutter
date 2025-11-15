@@ -3,9 +3,12 @@ import '../../data/field_registry.dart';
 import '../../data/contract_data_manager.dart';
 import '../widgets/single_field_screen_with_keyboard.dart';
 import '../widgets/entity_type_selection_screen.dart';
+import '../widgets/pdf_action_dialog.dart';
 import 'contract_checkout_page.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/localization/app_localization.dart';
+import '../../services/contract_pdf_generator.dart';
+import '../../../../core/services/pdf_service.dart';
 
 /// Main page that orchestrates the single-field-per-screen flow
 /// Similar to Kivy's ScreenManager
@@ -190,27 +193,94 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
     );
   }
 
-  void _navigateToCheckout() {
+  Future<void> _navigateToCheckout() async {
     if (_dataManager == null) return;
 
     // Build contract model from data
     final contract = _dataManager!.toContractModel();
 
-    // Navigate to checkout page
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ContractCheckoutPage(
-          contract: contract,
-          onBack: () {
-            Navigator.of(context).pop();
-          },
-          onProceedToPayment: () {
-            // TODO: Implement payment processing
-            _handlePaymentCompletion();
-          },
+    // Show loading dialog while generating PDF
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.all(32.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text(
+                  'Generare contract PDF...',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
+
+    try {
+      // Generate PDF
+      final pdf = await ContractPdfGenerator.generateContractPdf(contract);
+
+      // Generate filename with timestamp
+      final fileName = 'Contract_${PdfService.generateContractNumber()}.pdf';
+
+      // Close loading dialog
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+
+      // Show PDF action dialog
+      if (mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => PdfActionDialog(
+            pdf: pdf,
+            fileName: fileName,
+            onNewContract: () {
+              _handleNewContract();
+            },
+          ),
+        );
+      }
+    } catch (e) {
+      // Close loading dialog
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+
+      // Show error
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Eroare la generarea contractului: $e'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 5),
+          ),
+        );
+      }
+    }
+  }
+
+  void _handleNewContract() {
+    // Clear data and start new contract
+    _dataManager?.clearAll();
+
+    if (mounted) {
+      // Reset to first field
+      setState(() {
+        _currentFieldKey = FieldRegistry.getFirstField().key;
+      });
+
+      // Navigate back to home or restart flow
+      context.go('/home');
+    }
   }
 
   void _handlePaymentCompletion() {
