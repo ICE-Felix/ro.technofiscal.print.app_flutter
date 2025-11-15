@@ -29,7 +29,10 @@ class IntroView extends StatelessWidget {
         listeners: [
           BlocListener<IntroBloc, IntroState>(
             listener: (context, state) {
-              if (state is IntroNavigateToAuth) {
+              if (state is IntroNavigateToHome) {
+                // Navigate to home page after intro completes
+                context.goNamed(AppRoutesNames.home.name);
+              } else if (state is IntroNavigateToAuth) {
                 // Check authentication status after intro completes
                 context.read<AuthenticationBloc>().add(
                   CheckAuthStatusRequested(),

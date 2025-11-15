@@ -13,6 +13,7 @@ import 'package:app/features/events/domain/repository/events_repository_supabase
 import 'package:app/features/locations/data/datasources/locations_remote_data_source.dart';
 import 'package:app/features/locations/domain/repositories/locations_repository.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -275,13 +276,16 @@ Future<void> initServiceLocator() async {
   // Localization Cubit
   sl.registerFactory(() => LocalizationCubit());
 
-  // Firebase Messaging Service
-  sl.registerLazySingleton(() => FirebaseMessagingService());
+  // Firebase Messaging Service - only on mobile platforms
+  if (defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.iOS) {
+    sl.registerLazySingleton(() => FirebaseMessagingService());
 
-  // Supabase FCM Service
-  sl.registerLazySingleton<SupabaseFcmService>(
-    () => SupabaseFcmServiceImpl(dio: sl<DioClient>()),
-  );
+    // Supabase FCM Service
+    sl.registerLazySingleton<SupabaseFcmService>(
+      () => SupabaseFcmServiceImpl(dio: sl<DioClient>()),
+    );
+  }
 
   // Location Service
   sl.registerLazySingleton<LocationService>(() => LocationService());

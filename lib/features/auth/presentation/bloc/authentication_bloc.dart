@@ -49,18 +49,22 @@ class AuthenticationBloc
     // Listen to real-time auth state changes
     _authStateSubscription = _authenticationService.authStateChanges.listen(
       (UserModel? user) async {
-        if (user != null) {
-          // User signed in
-          await sl<FirebaseMessagingService>().initializeTokenForLoggedUser(
-            userId: user.id.toString(),
-          );
-          // Note: We can't emit here as we're not in an event handler
-          // The auth state changes will be handled by the individual event handlers
-        } else {
-          // User signed out
-          await sl<FirebaseMessagingService>().clearAuthData();
-          // Note: We can't emit here as we're not in an event handler
-          // The auth state changes will be handled by the individual event handlers
+        // Only use Firebase on mobile platforms
+        if (defaultTargetPlatform == TargetPlatform.android ||
+            defaultTargetPlatform == TargetPlatform.iOS) {
+          if (user != null) {
+            // User signed in
+            await sl<FirebaseMessagingService>().initializeTokenForLoggedUser(
+              userId: user.id.toString(),
+            );
+            // Note: We can't emit here as we're not in an event handler
+            // The auth state changes will be handled by the individual event handlers
+          } else {
+            // User signed out
+            await sl<FirebaseMessagingService>().clearAuthData();
+            // Note: We can't emit here as we're not in an event handler
+            // The auth state changes will be handled by the individual event handlers
+          }
         }
       },
       onError: (error) {
@@ -71,9 +75,13 @@ class AuthenticationBloc
       },
     );
 
-    FirebaseMessaging.instance.onTokenRefresh.listen((token) {
-      sl<FirebaseMessagingService>().refreshToken();
-    });
+    // Listen to token refresh only on mobile platforms
+    if (defaultTargetPlatform == TargetPlatform.android ||
+        defaultTargetPlatform == TargetPlatform.iOS) {
+      FirebaseMessaging.instance.onTokenRefresh.listen((token) {
+        sl<FirebaseMessagingService>().refreshToken();
+      });
+    }
   }
 
   @override

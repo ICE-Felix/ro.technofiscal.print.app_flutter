@@ -40,3 +40,5 @@ class IntroSuccess extends IntroState {
 }
 
 class IntroNavigateToAuth extends IntroState {}
+
+class IntroNavigateToHome extends IntroState {}

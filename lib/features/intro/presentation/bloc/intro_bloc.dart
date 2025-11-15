@@ -108,10 +108,10 @@ class IntroBloc extends Bloc<IntroEvent, IntroState> {
       await completeIntroUseCase(NoParams());
 
       if (kDebugMode) {
-        print('✅ Intro completed - navigating to auth');
+        print('✅ Intro completed - navigating to home');
       }
 
-      emit(IntroNavigateToAuth());
+      emit(IntroNavigateToHome());
     } catch (e) {
       if (kDebugMode) {
         print('❌ Failed to complete intro: $e');
@@ -128,7 +128,7 @@ class IntroBloc extends Bloc<IntroEvent, IntroState> {
       if (kDebugMode) {
         print('✅ Intro completed manually');
       }
-      emit(IntroNavigateToAuth());
+      emit(IntroNavigateToHome());
     } catch (e) {
       if (kDebugMode) {
         print('❌ Manual intro completion failed: $e');
