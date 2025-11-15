@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/localization/app_localization.dart';
 import '../../services/contract_pdf_generator.dart';
 import '../../../../core/services/pdf_service.dart';
+import '../../../../core/widgets/kiosk_session_wrapper.dart';
 
 /// Main page that orchestrates the single-field-per-screen flow
 /// Similar to Kivy's ScreenManager
@@ -390,37 +391,42 @@ class _SingleFieldFlowPageState extends State<SingleFieldFlowPage> {
       );
     }
 
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) async {
-        if (didPop) return;
+    return KioskSessionWrapper(
+      timeout: const Duration(seconds: 60),
+      clearDataOnTimeout: true,
+      dataKeysToClear: const ['contract_data', 'current_field'],
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          if (didPop) return;
 
-        // Show confirmation dialog before leaving
-        final shouldPop = await showDialog<bool>(
-          context: context,
-          builder: (dialogContext) => AlertDialog(
-            title: Text(context.getString(label: 'contractGeneration.exitContractGeneration')),
-            content: Text(
-              context.getString(label: 'contractGeneration.progressSaved'),
+          // Show confirmation dialog before leaving
+          final shouldPop = await showDialog<bool>(
+            context: context,
+            builder: (dialogContext) => AlertDialog(
+              title: Text(context.getString(label: 'contractGeneration.exitContractGeneration')),
+              content: Text(
+                context.getString(label: 'contractGeneration.progressSaved'),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(false),
+                  child: Text(context.getString(label: 'contractGeneration.continueBtn')),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(true),
+                  child: Text(context.getString(label: 'contractGeneration.exitBtn')),
+                ),
+              ],
             ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(dialogContext).pop(false),
-                child: Text(context.getString(label: 'contractGeneration.continueBtn')),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.of(dialogContext).pop(true),
-                child: Text(context.getString(label: 'contractGeneration.exitBtn')),
-              ),
-            ],
-          ),
-        );
+          );
 
-        if (shouldPop == true && context.mounted) {
-          Navigator.of(context).pop();
-        }
-      },
-      child: _buildFieldScreen(),
+          if (shouldPop == true && context.mounted) {
+            Navigator.of(context).pop();
+          }
+        },
+        child: _buildFieldScreen(),
+      ),
     );
   }
 }
