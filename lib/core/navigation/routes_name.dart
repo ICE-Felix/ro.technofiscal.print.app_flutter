@@ -57,6 +57,10 @@ enum AppRoutesNames {
     name: 'payment_terminal',
     path: '/payment-terminal',
   ),
+  idScanner(
+    name: 'id_scanner',
+    path: '/id-scanner',
+  ),
 
   paymentWebView(name: 'payment_webview', path: 'payment_webview');
 
